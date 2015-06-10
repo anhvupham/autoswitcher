@@ -19,5 +19,13 @@
     "switch"
   ],
   "author": "Vincent Pham",
-  "license": "BSD"
+  "license": "BSD",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anhvupham/autoswitcher.git"
+  },
+  "bugs": {
+    "url": "https://github.com/anhvupham/autoswitcher/issues"
+  },
+  "homepage": "https://github.com/anhvupham/autoswitcher#readme"
 }

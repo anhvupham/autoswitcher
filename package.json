@@ -4,7 +4,7 @@
   "description": "a small program to switch the wireless connection automatically",
   "main": "index.js",
   "bin": {
-    "autoswitch": "autoswitch.js"
+    "autoswitch": "./bin/autoswitch.js"
   },
   "dependencies": {
     "ping": "^0.1.10"
@@ -19,7 +19,7 @@
     "switch"
   ],
   "author": "Vincent Pham",
-  "license": "BSD",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anhvupham/autoswitcher.git"

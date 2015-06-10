@@ -1,1 +1,1 @@
-require('./controller').run();
+require('../controller').run();

@@ -1,0 +1,23 @@
+{
+  "name": "autoswitch",
+  "version": "0.0.1",
+  "description": "a small program to switch the wireless connection automatically",
+  "main": "index.js",
+  "bin": {
+    "autoswitch": "autoswitch.js"
+  },
+  "dependencies": {
+    "ping": "^0.1.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "autoswitch",
+    "wireless",
+    "switch"
+  ],
+  "author": "Vincent Pham",
+  "license": "BSD"
+}

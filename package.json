@@ -1,12 +1,13 @@
 {
   "name": "autoswitch",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "a small program to switch the wireless connection automatically",
   "main": "index.js",
   "bin": {
     "autoswitch": "./bin/autoswitch.js"
   },
   "dependencies": {
+    "colors": "^1.1.0",
     "ping": "^0.1.10"
   },
   "devDependencies": {},

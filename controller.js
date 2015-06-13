@@ -10,7 +10,7 @@ module.exports = {
             current = '',
             interval, match;
 
-        exec('/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I', function(error, stdout, stderr) {
+        exec("/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'", function(error, stdout, stderr) {
             // console.log('stdout: ' + stdout);
             // console.log('stderr: ' + stderr);
 
@@ -40,11 +40,12 @@ module.exports = {
                         clearInterval(interval);
                         for (var x in networks) {
                             if (networks[x] == false) {
+                                networks[x] = true;
                                 console.log('network is down, switched to '.red, x.green)
                                 exec(util.format('networksetup -setairportnetwork en0 %s %s', x, config.pass), function(err, stdout, stderr) {
                                     setTimeout(function() {
                                         process(exec);
-                                    }, 10000);
+                                    }, 15000);
                                 });
                             }
                         }

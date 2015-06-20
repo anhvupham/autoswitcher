@@ -7,8 +7,7 @@
     "autoswitch": "./bin/autoswitch.js"
   },
   "dependencies": {
-    "colors": "^1.1.0",
-    "ping": "^0.1.10"
+    "colors": "^1.1.0"
   },
   "devDependencies": {},
   "scripts": {

@@ -1,8 +1,8 @@
-var ping = require('ping'),
-    exec = require('child_process').exec,
+var exec = require('child_process').exec,
     util = require('util'),
     config = require('./config'),
-    colors = require('colors');
+    colors = require('colors'),
+    lib = require('./lib');
 
 module.exports = {
     run: function() {
@@ -32,8 +32,11 @@ module.exports = {
         });
 
         (function process(exec) {
+            console.log('start interval');
             interval = setInterval(function() {
-                ping.sys.probe('google.com', function(isAlive) {
+
+                lib.ping('google.com', function(isAlive) {
+                    // console.log(isAlive);
                     // var msg = isAlive ? 'host is alive' : 'host is dead, switch to another network';
                     if (!isAlive) {
                         // console.log(msg.red);
@@ -45,10 +48,12 @@ module.exports = {
                                 exec(util.format('networksetup -setairportnetwork en0 %s %s', x, config.pass), function(err, stdout, stderr) {
                                     setTimeout(function() {
                                         process(exec);
-                                    }, 15000);
+                                    }, 10000);
                                 });
                             }
                         }
+                    } else {
+                        // console.log('alive');
                     }
                 });
             }, 1000);

@@ -1,6 +1,6 @@
 {
   "name": "autoswitch",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "a small program to switch the wireless connection automatically",
   "main": "index.js",
   "bin": {

@@ -27,46 +27,31 @@ module.exports = {
                     }
                 }
                 console.log('Started, current network is '.green, current.red);
-                // console.log(networks)
             }
         });
 
         (function process(exec) {
-            console.log('start interval'.green);
-            var updating = false;
-            setInterval(function() {
+            setTimeout(function() {
                 lib.ping('google.com', function(isAlive) {
-                    // console.log(isAlive);
-                    // var msg = isAlive ? 'host is alive' : 'host is dead, switch to another network';
                     if (!isAlive) {
-                        if (!updating) {
-                            updating = true;
-                            // console.log(msg.red);
-                            // clearInterval(interval);
-                            for (var x in networks) {
-                                if (networks[x] == false) {
-                                    networks[x] = true;
-                                    console.log('network is down, switched to '.red, x.green)
-                                    exec(util.format('networksetup -setairportnetwork en0 %s %s', x, config.pass), function(err, stdout, stderr) {
-                                        console.log(stdout.yellow);
-                                        // setTimeout(function() {
-                                        //     process(exec);
-                                        // }, 10000);
-                                    });
-                                } else {
-                                    networks[x] = false;
-                                }
+                        for (var x in networks) {
+                            if (networks[x] == false) {
+                                networks[x] = true;
+                                console.log('network is down, switched to '.red, x.green)
+                                exec(util.format('networksetup -setairportnetwork en0 %s %s', x, config.pass), function(err, stdout, stderr) {
+                                    console.log('switched done'.green, stdout.yellow);
+                                    process(exec);
+                                });
+                            } else {
+                                networks[x] = false;
                             }
                         }
-                        else {
-                            console.log('updating'.grey);
-                        }
                     } else {
-                        updating = false;
-                        // console.log('alive');
+                        process(exec);
                     }
                 });
             }, 3000);
         })(exec);
     }
+
 }

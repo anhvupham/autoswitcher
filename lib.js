@@ -4,10 +4,7 @@ var sys = require('util'),
     os = require('os');
 
 exports.ping = function(addr, cb) {
-
     var p = os.platform();
-    
-
     var callback = function(error, stdout, stderr) {
         // console.log('error: ' + error);
         // console.log('stdout: ' + stdout);

@@ -2,15 +2,28 @@ var exec = require('child_process').exec,
     util = require('util'),
     config = require('./config'),
     colors = require('colors'),
-    lib = require('./lib');
+    lib = require('./lib'),
+    os = require('os');
 
 module.exports = {
     run: function() {
         var networks = config.hosts,
             current = '',
-            interval, match;
+            interval, match, command1, command2,
+            platform = os.platform();
 
-        exec("/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'", function(error, stdout, stderr) {
+        switch (platform) {
+            case 'win32':
+                command2 = "netsh wlan connect %s"
+            case 'darwin':
+            default:
+                command2 = 'networksetup -setairportnetwork en0 %s %s'
+                command1 = "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'"
+                break;
+
+        }
+
+        exec(command1, function(error, stdout, stderr) {
             // console.log('stdout: ' + stdout);
             // console.log('stderr: ' + stderr);
 
@@ -38,7 +51,7 @@ module.exports = {
                             if (networks[x] == false) {
                                 networks[x] = true;
                                 console.log('network is down, switched to '.red, x.green)
-                                exec(util.format('networksetup -setairportnetwork en0 %s %s', x, config.pass), function(err, stdout, stderr) {
+                                exec(util.format(command2, x, config.pass), function(err, stdout, stderr) {
                                     console.log('switched done'.green, stdout.yellow);
                                     process(exec);
                                 });
@@ -50,7 +63,7 @@ module.exports = {
                         process(exec);
                     }
                 });
-            }, 3000);
+            }, 6000);
         })(exec);
     }
 

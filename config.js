@@ -1,7 +1,6 @@
 module.exports = {
     hosts: {
-    	'NETGEAR50-5G': false,
-        NETGEAR50: false
+    	'name of the wifi network': false,
     },
-    pass: 'vasthill136'
+    pass: 'input your password here'
 }
